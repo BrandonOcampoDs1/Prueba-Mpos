@@ -55,7 +55,7 @@ El objetivo es demostrar dominio de Angular moderno, manejo de estado reactivo, 
 ## 🌍 Demo en línea
 
 El proyecto también está desplegado en **Vercel**, así que puedes probarlo directamente aquí:  
-👉 [Demo en Vercel](https://TU-ENLACE-VERCEL.vercel.app)
+👉 [Demo en Vercel](https://prueba-mpos.vercel.app/)
 
 ---
 
