@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+/* ======================================== */
+/*           VARIABLES GLOBALES             */
+/* ======================================== */
+:root {
+    /* Fuente principal */
+    --font-primary: 'Noto Sans JP', sans-serif;
+
+    /* Colores */
+    --color-text: #090909;
+    --color-secundary: #0053b5;
+    --color-background2: #ffffff;
+    --color-background: #e8e8e887;
+    --color-button-bg: #ffffff;
+    --color-button-border: #e8e8e8;
+    --color-button-shadow: #c5c5c5;
+    --color-button-text-active: #666;
+
+    /* Bordes */
+    --radius-borde:24px;
+
+    /* Margen */
+    --margen-general:2%;
+}
+
+/* ======================================== */
+/* FUENTES GLOBALES */
+/* ======================================== */
+body {
+    font-family: var(--font-primary);
+    color: var(--color-text);
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-background);
+}
+
+.cart-pinned{
+    margin-right: 300px;
+}

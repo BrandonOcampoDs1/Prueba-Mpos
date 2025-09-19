@@ -1,0 +1,11 @@
+.app-wrapper {
+  transition: margin 0.3s ease;
+}
+
+.app-wrapper.cart-pinned {
+  margin-right: 300px;
+}
+
+.app-wrapper.cart-pinned .products-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
