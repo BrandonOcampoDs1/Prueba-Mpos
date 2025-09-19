@@ -1,6 +1,14 @@
 <section class="product-list">
+  <div class="pl-search-bar">
+    <input
+      type="text"
+      placeholder="Buscar productos..."
+      [(ngModel)]="searchTerm"
+    />
+  </div>
   <div id="grid-cards" class="products-grid">
-    <div class="product-row" *ngFor="let p of products">
+    <!-- <div class="product-row" *ngFor="let p of products"> -->
+    <div class="product-row" *ngFor="let p of filteredProducts">
       <div class="product-info">
         <img [src]="p.image" [alt]="p.title" />
         <div class="product-details">
@@ -28,6 +36,23 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="pl-pagination">
+    <button
+      (click)="currentPage = currentPage - 1"
+      [disabled]="currentPage === 1"
+    >
+      Anterior
+    </button>
+
+    <span>Página {{ currentPage }} de {{ totalPages }}</span>
+
+    <button
+      (click)="currentPage = currentPage + 1"
+      [disabled]="currentPage === totalPages"
+    >
+      Siguiente
+    </button>
   </div>
 </section>
 
