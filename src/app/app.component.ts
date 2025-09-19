@@ -1,15 +1,24 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
+import { CartDrawerComponent } from './components/cart-drawer/cart-drawer.component';
+import { AccountModal } from './components/account-modal/account-modal.component';
 import { CartStore } from './core/cart.store';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent],
-  providers: [CartStore] // opcional si quieres que se cree aquí
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    CartDrawerComponent,
+    AccountModal,
+    CommonModule,
+  ],
+  // providers: [CartStore] // opcional si quieres que se cree aquí
 })
 export class AppComponent {
   cartOpen = false;
@@ -20,10 +29,5 @@ export class AppComponent {
 
   toggleCart() {
     this.cartOpen = !this.cartOpen;
-  }
-
-  togglePin() {
-    this.cartPinned = !this.cartPinned;
-    if (this.cartPinned) this.cartOpen = true;
   }
 }

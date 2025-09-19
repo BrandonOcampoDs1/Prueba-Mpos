@@ -1,0 +1,95 @@
+
+
+/* resumen */
+.checkout-wrapper {
+  max-width: 500px;
+  margin: 2% auto;
+  padding: 25px 30px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Roboto, sans-serif;
+  color: #333;
+}
+
+.checkout-wrapper h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #0053b5; /* azul principal */
+}
+
+.checkout-wrapper ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.checkout-wrapper li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkout-wrapper li:last-child {
+  border-bottom: none;
+}
+
+.checkout-wrapper p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: right;
+  margin: 20px 0;
+  color: #222;
+}
+
+.checkout-wrapper button {
+  width: 48%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.checkout-wrapper button:first-of-type {
+  background: linear-gradient(135deg, #0053b5, #0078e7);
+  color: #fff;
+}
+
+.checkout-wrapper button:first-of-type:hover {
+  background: linear-gradient(135deg, #00408f, #0066c5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 83, 181, 0.3);
+}
+
+.checkout-wrapper button:last-of-type {
+  background: #f3f3f3;
+  color: #444;
+}
+
+.checkout-wrapper button:last-of-type:hover {
+  background: #e2e2e2;
+  transform: translateY(-2px);
+}
+
+.checkout-wrapper button:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 600px) {
+  .checkout-wrapper {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .checkout-wrapper button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

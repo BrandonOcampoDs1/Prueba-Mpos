@@ -1,0 +1,276 @@
+/* === Overlay === */
+.mdu_modal {
+  display: flex;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(1px);
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.mdu_modal-content {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  opacity: 1;
+  transform: scale(1);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+
+
+.mdu_show .mdu_modal-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* === Title === */
+.mdu_modal-content h2 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+/* === Inputs & Form === */
+.mdu_modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.mdu_modal-content input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.mdu_modal-content input:focus {
+  border-color: #fd5d00;
+}
+
+/* === Buttons === */
+
+
+.mdu_modal-content button:hover {
+  transform: translateY(-2px);
+}
+
+
+/* === Close Button === */
+.mdu_close-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.8rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.mdu_close-btn:hover {
+  color: #000;
+}
+
+.cart-drawer.open {
+  transform: translateX(0);
+}
+
+/* BOTON FLOTANTE CUENTA */
+.account-button {
+  position: fixed;
+  bottom: 90%;
+  right: 4%;
+  z-index: 1100;
+  background-color: var(--color-background2);
+  color: #fd5d00;
+  /* SI YA ESTA REGISTRADO ESTE COLOR #007e06 */
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.2rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.account-button:hover {
+  transform: translateY(-2px);
+}
+
+.card {
+  margin: 20px auto;
+  color: #fff;
+  position: relative;
+  display: block;
+  width: 350px;
+  height: 200px;
+  border-radius: 10px;
+  background: linear-gradient(to bottom,
+      #0053b5 0%,
+      #003f87 50%,
+      #007bff 100%);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+/* Efecto brillo */
+.card:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 350px;
+  height: 200px;
+  border-radius: 10px;
+  opacity: 0.3;
+  animation: shine 3s infinite 3s;
+  background: linear-gradient(to bottom,
+      #0053b5 0%,
+      #003f87 50%,
+      #007bff 100%);
+
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+/* Elementos */
+.far,
+.fab,
+.name,
+.price,
+.serial {
+  position: absolute;
+}
+
+.fa-credit-card {
+  top: 15px;
+  left: 15px;
+}
+
+.fa-cc-mastercard {
+  bottom: 15px;
+  right: 15px;
+}
+
+.name {
+  top: 15px;
+  right: 15px;
+  font-weight: bold;
+}
+
+.price {
+  bottom: 15px;
+  left: 15px;
+  font-size: 16px;
+}
+
+.serial {
+  top: 50%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin-top: -15px;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.balance {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 2px;
+  font-weight: 300;
+}
+
+.out_btn {
+  width: 100%;
+  z-index: 1100;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.2rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btns_modal_user button {
+  width: 100%;
+  z-index: 1100;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.2rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.add_btn {
+  background-color: #e6f7e6; /* verde muy claro */
+  color: #2e7d32;           /* verde sutil */
+  border: 1px solid #a5d6a7;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add_btn:hover {
+  background-color: #c8e6c9; /* verde un poco más fuerte */
+}
+
+.quit_btn {
+  background-color: #fdeaea; /* rojo muy claro */
+  color: #c62828;            /* rojo sutil */
+  border: 1px solid #ef9a9a;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.quit_btn:hover {
+  background-color: #ffcdd2; /* rojo más notorio al hover */
+}
+
+
+.btns_modal_user {
+  display: flex;
+  gap: 15px;
+}
+
+.error {
+  color: #fd5d00;
+  font-size: 0.85rem;
+  margin-top: 2px;
+} 

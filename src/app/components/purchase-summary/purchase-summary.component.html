@@ -1,0 +1,21 @@
+<div class="summary-wrapper" *ngIf="summary">
+  <h2>✅ Compra realizada</h2>
+
+  <div class="summary-info">
+    <p><b>Cliente:</b> {{ summary.name }}</p>
+    <p><b>Monto pagado:</b> ${{ summary.total | number: '1.0-2' }}</p>
+  </div>
+
+  <h3>🛒 Productos</h3>
+  <ul class="items-list">
+    <li *ngFor="let item of summary.items">
+      <span>{{ item.product.title }}</span>
+      <span>${{ item.product.price | number: '1.0-2' }} x {{ item.product.quantity }}</span>
+    </li>
+  </ul>
+
+  <div class="summary-actions">
+    <button class="btn back" (click)="volver()">Volver al inicio</button>
+    <button class="btn pdf" (click)="exportarPDF()">Exportar a PDF</button>
+  </div>
+</div>

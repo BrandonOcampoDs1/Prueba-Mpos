@@ -1,1 +1,65 @@
-<p>cart-drawer works!</p>
+  <!-- Drawer del carrito -->
+  <div
+    class="cart-drawer"
+    [class.open]="cartOpen"
+    [class.pinned]="cartPinned"
+    (click)="onCartBackdropClick($event)"
+  >
+    <div class="cart-header">
+      <h2>Carrito</h2>
+      <span class="cart-close" (click)="toggleCart()">&times;</span>
+    </div>
+
+    <ul>
+      <li *ngFor="let item of cart.items()">
+        <div class="cart-item">
+          <img [src]="item.product.image" [alt]="item.product.title" />
+          <div class="cart-item-info">
+            <span class="cart-item-title">{{ item.product.title }}</span>
+            <span class="cart-item-qty">
+              x {{ item.quantity }} = ${{ item.product.price * item.quantity }}
+            </span>
+
+            <!-- CONTROLES DE CANTIDAD -->
+            <div class="quantity-controls">
+              <button
+                (click)="cart.updateQuantity(item.product.id, item.quantity - 1)"
+              >
+                -
+              </button>
+              <span>{{ item.quantity }}</span>
+              <button (click)="cart.addProduct(item.product)">+</button>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <p>Total: ${{ cart.total() | number : "1.0-0" }}</p>
+
+    <div class="btns_cart no-close">
+      <button
+        class="pay-btn"
+        (click)="goToCheckout()"
+        [disabled]="cart.items().length === 0"
+      >
+        Pagar
+      </button>
+      <button (click)="cleanCart()">Limpiar Carrito</button>
+      <button class="btn_fijar" (click)="togglePin()">
+        {{ cartPinned ? "Desfijar" : "Fijar" }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Botón abrir carrito -->
+  <button
+    class="cart-button"
+    (click)="toggleCart()"
+    *ngIf="!cartPinned && !cartOpen"
+  >
+    <i class="fa-solid fa-cart-shopping"></i> Carrito ({{
+      cart.totalItems() | number : "1.0-0"
+    }}
+    )
+  </button>

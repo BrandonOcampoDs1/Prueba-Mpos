@@ -4,6 +4,10 @@ import { Product } from './models/product.model';
 
 @Injectable({ providedIn: 'root' })
 export class CartStore {
+  constructor() {
+    this.loadFromStorage();
+  }
+
   private _items = signal<CartItem[]>([]);
   items = this._items.asReadonly();
 
@@ -52,9 +56,15 @@ export class CartStore {
     return this._items().some((i) => i.product.id === product.id);
   }
 
-  loadFromStorage() {
+  private loadFromStorage() {
     const saved = localStorage.getItem('cart');
-    if (saved) this._items.set(JSON.parse(saved));
+    if (saved) {
+      try {
+        this._items.set(JSON.parse(saved));
+      } catch (e) {
+        console.error('Error al cargar carrito desde storage', e);
+      }
+    }
   }
 
   private saveToStorage() {

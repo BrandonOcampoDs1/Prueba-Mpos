@@ -1,69 +1,128 @@
-# 🛒 Prueba Técnica – Carrito de Compras (Angular 19)
+# Prueba técnica — Carrito de Compras (MPOS)
 
-Este proyecto corresponde a la **prueba técnica para MPOS**, donde se implementa un carrito de compras usando **Angular 19 (standalone components, signals y computed)** y la API pública [FakeStoreAPI](https://fakestoreapi.com/).
-
-El objetivo es demostrar dominio de Angular moderno, manejo de estado reactivo, persistencia de datos y un diseño **100% CSS**, totalmente responsive y amigable con el usuario final.
-
----
-
-## 🚀 Funcionalidades
-
-- Tabla de productos con opción de **agregar al carrito**.
-- **Drawer lateral** para visualizar el carrito con:
-  - Productos seleccionados
-  - Cantidades y subtotales
-  - Total acumulado
-  - Botón para ir al flujo de pago
-- **Pantalla de pago** con resumen de la compra y simulación de proceso de pago.
-- **Persistencia del carrito** (localStorage) → no se pierde al refrescar el navegador.
-- Diseño **100% CSS, sin frameworks UI**, responsive de móvil a desktop.
+**Repositorio:** entrega de la prueba técnica del carrito de compras.
+**Demo pública:** https://prueba-mpos.vercel.app/
 
 ---
 
-## 🛠️ Tecnologías utilizadas
+## Resumen del proyecto
 
-- [Angular 19](https://v19.angular.dev/) (standalone components)
-- Signals y computed para estado reactivo
-- TypeScript
-- CSS puro (variables, grid, flexbox, transiciones)
-- Persistencia con `localStorage`
-- API: [FakeStoreAPI](https://fakestoreapi.com/)
+Aplicación de carrito de compras desarrollada con **Angular (standalone components)**, gestionando el estado con **signals** y **computed**, diseño 100% CSS (sin librerías de UI) y totalmente responsive (móvil → desktop). Se consumió la API de ejemplo `https://fakestoreapi.com/` para poblar productos.  
+La app cumple los requisitos funcionales: listado de productos, drawer lateral del carrito, pantalla de pago simulada y persistencia en `localStorage` para que el carrito sobreviva a un refresh.
+
+> Nota: durante la maquetación se aplicaron animaciones y microinteracciones; si al abrir el proyecto localmente notas pequeños desajustes en ciertos estilos, fue una decisión visual y también puede deberse a diferencias entre entornos — pido disculpas si algún CSS se ve desordenado en resolución específica; todo es 100% CSS y responsive.
 
 ---
 
-## 📦 Instalación y ejecución local
+## Demo en línea
 
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/BrandonOcampoDs1/Prueba-Mpos.git
-   cd Prueba-Mpos
-   ```
-
-2. Instala dependencias:
-   ```bash
-   npm install
-   ```
-
-3. Levanta el servidor local:
-   ```bash
-   ng serve
-   ```
-   👉 Abre en tu navegador: [http://localhost:4200](http://localhost:4200)
+Puedes probar la versión desplegada en:  
+**https://prueba-mpos.vercel.app/**
 
 ---
 
-## 🌍 Demo en línea
+## Tecnologías principales
 
-El proyecto también está desplegado en **Vercel**, así que puedes probarlo directamente aquí:  
-👉 [Demo en Vercel](https://prueba-mpos.vercel.app/)
+- Angular (standalone components)
+- Signals y computed (estado reactivo)
+- JavaScript / TypeScript
+- HTML5 + CSS3 (100% CSS, sin frameworks)
+- LocalStorage para persistencia
+- API de ejemplo: `https://fakestoreapi.com/`
 
 ---
 
-## 📝 Decisiones técnicas
+## Cómo ejecutar el proyecto (local)
 
-- **Estado**: manejado con `signals` y `computed` en lugar de `NgRx` u otros stores, para cumplir con el objetivo de la prueba.  
-- **Persistencia**: `localStorage` para mantener el carrito tras recargar.  
-- **Diseño**: CSS variables para colores, sombras y bordes → interfaz limpia y moderna para mejorar el UX/UI del usuario final.  
-- **Responsive**: combinación de **CSS Grid + Flexbox + media queries**.  
-- **Drawer**: animación fluida con transiciones CSS, sin librerías externas.  
+> Antes de ejecutar, revisa `package.json` para confirmar los scripts disponibles. Aquí dejo las formas más comunes:
+
+1. Clona el repositorio
+```bash
+git clone <tu-repo-url>
+cd <tu-repo-folder>
+```
+
+2. Instala dependencias
+```bash
+npm install
+```
+
+3. Ejecuta la app en modo desarrollo
+
+- Si el proyecto usa Angular CLI:
+```bash
+npm run start
+```
+
+La aplicación se abrirá normalmente en `http://localhost:4200` o en el puerto indicado por el script.
+
+---
+
+## Estructura y decisiones de diseño
+
+### Organización
+- **Standalone components**: todos los componentes principales son standalone para demostrar dominio de Angular 19 y su modelo de componentes independientes.
+- **Stores** (por ejemplo `CartStore`, `UserStore`): pequeños servicios que encapsulan la lógica de estado usando **signals** y funciones computadas (computed). Esto facilita la sincronización entre vistas (listado, drawer, pantalla de pago).
+- **Componentes principales**:
+  - `ProductList` — listado de productos (obtiene desde Fakestore API).
+  - `CartDrawer` — drawer lateral con resumen, controles y total.
+  - `Checkout` / `PurchaseSummary` — flujos de pago y resumen final.
+  - `AccountModal` y `AppModal` — modales CSS para interacciones.
+
+### Manejo del estado
+Se trabajó con **signals** y actualizaciones inmutables del array de items. Ejemplo representativo usado en `CartStore`:
+
+### Persistencia
+
+La persistencia se resolvió con `localStorage`. Se serializa el estado relevante (carrito y cuenta de usuario) en cada cambio y se restaura al inicializar el store. Ejemplo de la función usada:
+
+```ts
+private saveToStorage() {
+  if (this.account()) {
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.account()));
+  } else {
+    localStorage.removeItem(this.STORAGE_KEY);
+  }
+}
+```
+
+También se utiliza `saveToStorage()` desde funciones de mutación del carrito (`addProduct`, `updateQuantity`, `removeProduct`, etc.) para que cualquier cambio quede guardado automáticamente.
+
+### Sincronización entre vistas
+
+Gracias a los signals y computed, cualquier cambio en el `CartStore` se refleja automáticamente en:
+- Listado de productos (por ejemplo mostrar cantidad actual en el botón "Agregar")
+- Drawer del carrito (cantidad, subtotales, total)
+- Pantalla de pago (resumen final)
+
+Esto cumple el requisito de sincronización productos ↔ carrito ↔ pantalla de pago.
+
+---
+
+## UX & Diseño
+
+- Diseño 100% CSS, responsive y pensado para móvil primero.
+- Drawer lateral con transición suave (CSS transition) y control de pin/abrir/cerrar.
+- Modal CSS para avisos (registro de cuenta, fondos insuficientes) en lugar de `alert()` nativo.
+- Microinteracciones: botones con hover activo, animación al añadir producto, transición del drawer, etc.
+- Se priorizó legibilidad tipográfica, espaciado y jerarquía visual.
+
+---
+
+## Simulación del flujo de pago
+
+El flujo de pago está simulado: al confirmar compra se verifica que exista una **cuenta** y **saldo** (almacenado en `UserStore` y persistido). Si todo es correcto, se deduce el saldo (`updateBalance(-total)`), se genera un `summary` con los detalles y se navega a la pantalla de resumen final donde se puede exportar el comprobante (PDF generado con `jsPDF`).
+
+---
+
+## Consideraciones finales y notas
+
+- El proyecto cumple los requisitos funcionales listados en la prueba técnica.
+- Todo el CSS es handcrafted; si ves algún detalle visual que necesite ajuste puedo corregirlo con prioridad (admito que hubo pequeñas diferencias entre vistas que ya estoy puliendo).
+
+---
+
+## Contacto
+Brandon Steven Ocampo Alvarez — creador del proyecto.
+
 ---

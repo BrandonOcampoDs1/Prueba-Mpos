@@ -1,0 +1,137 @@
+<button
+  class="account-button"
+  [ngStyle]="{ color: user.account() ? '#007e06' : '#fd5d00' }"
+  (click)="openModal()"
+  (click)="closeModalOnOutside($event)"
+>
+  <i class="fa-solid fa-circle-user"></i> Mi cuenta
+</button>
+
+<div class="mdu_modal" *ngIf="modalOpen" (click)="closeModal($event)">
+  <div class="mdu_modal-content">
+    <h2>Mi cuenta</h2>
+    <ng-container *ngIf="!user.account(); else accountInfo">
+      <!-- Tarjeta preview -->
+      <div class="card">
+        <i class="far fa-lg fa-credit-card"></i>
+        <span class="name">{{ form.name || "Tu nombre" }}</span>
+        <span class="serial">
+          {{ form.cardNumber ? (form.cardNumber | slice : 0 : 4) : "####" }}
+          xxxx xxxx
+          {{ form.cardNumber ? (form.cardNumber | slice : -4) : "####" }}
+        </span>
+        <span class="price">
+          <span class="balance">Expira</span>
+          {{ form.expiry || "MM/AA" }}
+        </span>
+        <i class="fab fa-2x fa-cc-mastercard"></i>
+      </div>
+
+      <!-- Formulario -->
+      <form (ngSubmit)="registerUser()" #cardForm="ngForm" novalidate>
+        <!-- Nombre -->
+        <input
+          type="text"
+          [(ngModel)]="form.name"
+          name="name"
+          placeholder="Nombre"
+          required
+        />
+        <div class="error" *ngIf="cardForm.submitted && !form.name">
+          El nombre es obligatorio.
+        </div>
+
+        <!-- Número de tarjeta -->
+        <input
+          type="text"
+          [(ngModel)]="form.cardNumber"
+          name="cardNumber"
+          placeholder="Número tarjeta (16 dígitos)"
+          required
+          maxlength="16"
+          (input)="onCardNumberInput()"
+        />
+        <div
+          class="error"
+          *ngIf="
+            cardForm.submitted &&
+            (!form.cardNumber || form.cardNumber.length !== 16)
+          "
+        >
+          Ingresa un número de tarjeta válido (16 dígitos).
+        </div>
+
+        <!-- Expiración -->
+        <input
+          type="text"
+          [(ngModel)]="form.expiry"
+          name="expiry"
+          placeholder="MM/AA"
+          required
+          maxlength="5"
+        />
+        <div class="error" *ngIf="cardForm.submitted && !isExpiryValid()">
+          Ingresa fecha de expiración válida (MM/AA).
+        </div>
+
+        <!-- CVV -->
+        <input
+          type="text"
+          [(ngModel)]="form.cvv"
+          name="cvv"
+          placeholder="CVV (3 dígitos)"
+          required
+          maxlength="3"
+          pattern="[0-9]{3}"
+          (input)="onCvvInput()"
+        />
+        <div
+          class="error"
+          *ngIf="cardForm.submitted && (!form.cvv || form.cvv.length !== 3)"
+        >
+          Ingresa un CVV válido (3 dígitos).
+        </div>
+
+        <!-- Botón -->
+        <button class="out_btn" type="submit">Registrar</button>
+      </form>
+    </ng-container>
+
+    <!-- Si ya hay cuenta registrada -->
+    <ng-template #accountInfo>
+      <div class="card">
+        <i class="far fa-lg fa-credit-card"></i>
+        <span class="name">{{ user.account()?.name }}</span>
+        <span class="serial">
+          {{ user.account()?.cardNumber | slice : 0 : 4 }} xxxx xxxx
+          {{ user.account()?.cardNumber | slice : -4 }}
+        </span>
+        <span class="price">
+          <span class="balance">Balance</span>
+          $ {{ user.account()?.balance | number : "1.0-2" }}
+        </span>
+        <i class="fab fa-2x fa-cc-mastercard"></i>
+      </div>
+
+      <div class="btns_modal_user">
+        <button class="add_btn" (click)="addFunds()">Agregar fondos</button>
+        <button class="quit_btn" (click)="removeFunds()">
+          Quitar fondos -
+        </button>
+      </div>
+      <button class="out_btn" (click)="user.clearAccount()">
+        Cerrar sesión
+      </button>
+    </ng-template>
+
+    <button class="mdu_close-btn" (click)="modalOpen = false">&times;</button>
+  </div>
+</div>
+
+<funds-modal
+  [visible]="fundsModalVisible"
+  [title]="fundsAction === 'add' ? 'Agregar Fondos' : 'Retirar Fondos'"
+  [action]="fundsAction"
+  (close)="fundsModalVisible = false"
+  (confirm)="handleFunds($event)">
+</funds-modal>

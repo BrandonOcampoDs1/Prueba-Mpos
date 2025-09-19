@@ -1,1 +1,27 @@
-<p>checkout works!</p>
+<div class="checkout-wrapper">
+  <h2>Resumen del carrito</h2>
+
+  <ul>
+    <li *ngFor="let item of items()">
+      {{ item.product.title }} - ${{ item.product.price }} x {{ item.quantity }}
+    </li>
+  </ul>
+
+  <p><b>Total:</b> ${{ total() | number:'1.0-0' }}</p>
+
+  <div class="actions">
+    <button (click)="confirmarCompra()">Confirmar compra</button>
+    <button (click)="cancelar()">Cancelar</button>
+  </div>
+</div>
+
+<!-- Modal de cuenta -->
+<account-modal></account-modal>
+
+<!-- 👇 Modal de mensajes de error -->
+<app-modal
+  [visible]="modalVisible"
+  [title]="modalTitle"
+  [message]="modalMessage"
+  [onClose]="closeModal.bind(this)">
+</app-modal>

@@ -4,34 +4,34 @@
       <div class="product-info">
         <img [src]="p.image" [alt]="p.title" />
         <div class="product-details">
-          <!-- Truncado con función -->
           <h3 class="md_title">{{ truncate(p.title, 35) }}</h3>
-          <p class="md_description">
-            {{ truncate(p.description, 50) }}
-          </p>
+          <p class="md_description">{{ truncate(p.description, 50) }}</p>
           <span class="md_ver-mas" (click)="openModal(p)">ver más</span>
           <p class="price">${{ p.price }}</p>
         </div>
       </div>
       <div class="product-actions">
         <button
-          class="my_button"
+          class="my_button add_cart no-close"
           *ngIf="!cart.hasProduct(p)"
-          (click)="addToCart(p)"
+          (click)="cart.addProduct(p)"
         >
           Agregar
         </button>
-        <div *ngIf="cart.hasProduct(p)" class="quantity-controls">
-          <button (click)="decreaseQuantity(p)">-</button>
+
+        <div *ngIf="cart.hasProduct(p)" class="quantity-controls no-close">
+          <button (click)="cart.updateQuantity(p.id, cart.getQuantity(p) - 1)">
+            -
+          </button>
           <span>{{ cart.getQuantity(p) }}</span>
-          <button (click)="increaseQuantity(p)">+</button>
+          <button (click)="cart.addProduct(p)">+</button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Modal Angular -->
+<!-- Modal detalle producto -->
 <div
   class="md_modal"
   [class.md_show]="modalOpen"
@@ -48,7 +48,7 @@
       <button
         class="my_button"
         *ngIf="selectedProduct && !cart.hasProduct(selectedProduct)"
-        (click)="addToCart(selectedProduct)"
+        (click)="cart.addProduct(selectedProduct)"
       >
         Agregar
       </button>
@@ -56,44 +56,19 @@
         *ngIf="selectedProduct && cart.hasProduct(selectedProduct)"
         class="quantity-controls"
       >
-        <button (click)="decreaseQuantity(selectedProduct)">-</button>
+        <button
+          (click)="
+            cart.updateQuantity(
+              selectedProduct.id,
+              cart.getQuantity(selectedProduct) - 1
+            )
+          "
+        >
+          -
+        </button>
         <span>{{ cart.getQuantity(selectedProduct) }}</span>
-        <button (click)="increaseQuantity(selectedProduct)">+</button>
+        <button (click)="cart.addProduct(selectedProduct)">+</button>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Drawer del carrito -->
-<div class="cart-drawer" [class.open]="cartOpen" [class.pinned]="cartPinned">
-  <div class="cart-header">
-    <h2>Carrito</h2>
-    <span class="cart-close" (click)="toggleCart()">&times;</span>
-  </div>
-    <ul>
-    <li *ngFor="let item of cart.items()">
-      <div class="cart-item">
-        <img [src]="item.product.image" [alt]="item.product.title" />
-        <div class="cart-item-info">
-          <span class="cart-item-title">{{ item.product.title }}</span>
-          <span class="cart-item-qty">
-            x {{ item.quantity }} = ${{ item.product.price * item.quantity }}
-          </span>
-        </div>
-      </div>
-    </li>
-  </ul>
-
-  <p>Total: ${{ cart.total() }}</p>
-  <div class="btns_cart">
-    <button (click)="cleanCart()">Limpiar Carrito</button>
-    <button (click)="togglePin()">{{ cartPinned ? "Desfijar" : "Fijar" }}</button>
-  </div>
-</div>
-
-<button 
-  class="cart-button" 
-  (click)="toggleCart()" 
-  *ngIf="!cartPinned && !cartOpen">
-  Carrito ({{ cart.totalItems() }})
-</button>
