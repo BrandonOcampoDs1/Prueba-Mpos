@@ -115,13 +115,6 @@ El flujo de pago está simulado: al confirmar compra se verifica que exista una 
 
 ---
 
-## Consideraciones finales y notas
-
-- El proyecto cumple los requisitos funcionales listados en la prueba técnica.
-- Todo el CSS es handcrafted; si ves algún detalle visual que necesite ajuste puedo corregirlo con prioridad (admito que hubo pequeñas diferencias entre vistas que ya estoy puliendo).
-
----
-
 ## Contacto
 Brandon Steven Ocampo Alvarez — creador del proyecto.
 
