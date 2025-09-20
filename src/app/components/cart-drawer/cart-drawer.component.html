@@ -29,6 +29,12 @@
               </button>
               <span>{{ item.quantity }}</span>
               <button (click)="cart.addProduct(item.product)">+</button>
+                <button
+                  class="remove-btn"
+                  (click)="cart.removeProduct(item.product.id)"
+                >
+                  ✕
+                </button>
             </div>
           </div>
         </div>

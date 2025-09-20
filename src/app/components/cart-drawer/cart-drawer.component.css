@@ -188,11 +188,24 @@
   width: 24px;
   height: 24px;
   border-radius: 4px;
-      display: flex
-;
+    display: flex;
     align-content: center;
     flex-direction: column;
     justify-content: center;
+}
+
+.quantity-controls .remove-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.quantity-controls .remove-btn:hover {
+  color: #b5171e;
 }
 
 @media (min-width: 600px) {

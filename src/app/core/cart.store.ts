@@ -42,6 +42,13 @@ export class CartStore {
     this.saveToStorage();
   }
 
+  removeProduct(productId: number) {
+    const currentItems = this._items(); // usar _items, no items
+    const updated = currentItems.filter(item => item.product.id !== productId);
+    this._items.set(updated); // actualizar el signal privado
+    this.saveToStorage();
+  }
+
   clear() {
     this._items.set([]);
     localStorage.removeItem('cart');
