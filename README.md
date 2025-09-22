@@ -51,6 +51,14 @@ npm install
 npm run start
 ```
 
+4. Importante que el equipo cuente con las versiones 
+
+```bash
+Node.js ^22.0.0
+https://nodejs.org/en/download
+NPM ^10.0.0
+```
+
 La aplicación se abrirá normalmente en `http://localhost:4200` o en el puerto indicado por el script.
 
 ---
