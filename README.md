@@ -34,8 +34,6 @@ Puedes probar la versión desplegada en:
 
 ## Cómo ejecutar el proyecto (local)
 
-> Antes de ejecutar, revisa `package.json` para confirmar los scripts disponibles. Aquí dejo las formas más comunes:
-
 1. Clona el repositorio
 ```bash
 git clone https://github.com/BrandonOcampoDs1/Prueba-Mpos.git
