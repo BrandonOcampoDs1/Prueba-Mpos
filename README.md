@@ -38,8 +38,8 @@ Puedes probar la versión desplegada en:
 
 1. Clona el repositorio
 ```bash
-git clone <tu-repo-url>
-cd <tu-repo-folder>
+git clone https://github.com/BrandonOcampoDs1/Prueba-Mpos.git
+cd Prueba-Mpos
 ```
 
 2. Instala dependencias
@@ -49,7 +49,6 @@ npm install
 
 3. Ejecuta la app en modo desarrollo
 
-- Si el proyecto usa Angular CLI:
 ```bash
 npm run start
 ```
